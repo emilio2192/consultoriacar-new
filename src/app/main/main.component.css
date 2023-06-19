@@ -1,0 +1,42 @@
+.sidenav{
+  height: 100vh;
+}
+
+.main-container{
+  width: 100vw;
+  height: 100vh;
+}
+
+.logo{
+  max-height: 150px;
+  float: left;
+}
+
+.menu-list{
+  float: left;
+  width: 100%;
+}
+.menu-list > .item-menu{
+  text-decoration: none;
+  color: black;
+  text-align: center;
+  width: 100%;
+  float: left;
+  border-bottom:1px solid black;
+  padding-bottom: 10px;
+  padding-top:10px;
+}
+.menu-list > .item-menu:hover{
+  border-color:#205897;
+  /* box-shadow: 0px 6px 5px #205897; */
+}
+.menu-list > .item-menu > a{
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.menu-list > .item-menu > a:hover, .menu-list > .item-menu > a.active{
+  color:#205897;
+}

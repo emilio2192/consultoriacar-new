@@ -1,0 +1,25 @@
+<mat-card class="login-container">
+  <mat-card-content>
+    <div class="mainContainer">
+      <h2><img class="login-logo" src="assets/logo.jpg" alt=""></h2>
+      <mat-error *ngIf="error">
+        Usuario o contraseña invalida
+      </mat-error>
+      <mat-form-field>
+        <input matInput placeholder="Email" [(ngModel)]="email" name="username" required>
+        <mat-error>
+          Ingrese un correo valido existente
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="password" placeholder="Password" [(ngModel)]="password" name="password" required>
+        <mat-error>
+          Se necesita una contraseña de ingreso
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="login()">Iniciar</button>
+      <button (click)="logout()">cerrar</button>
+      <a href="#">Olvidaste tu contraseña?</a>
+    </div>
+  </mat-card-content>
+</mat-card>

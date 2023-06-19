@@ -1,0 +1,32 @@
+<div class="main-dashboard">
+  <div class="admin-container">
+    <h2>Crear nuevo correlativo</h2>
+    <div class="frm-cases">
+      <mat-form-field>
+        <input matInput placeholder="Numero inicial" name="initialNumber" type="number" required>
+        <mat-error>
+          Ingrese un numero inicial de correlativo
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Numero final" name="finalNumber" type="number" required>
+        <mat-error>
+          Ingrese un numero final de correlativo
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Favorite food</mat-label>
+        <mat-select>
+          <mat-option>None</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <button mat-stroked-button color="primary" class="btn-crear">Basic</button>
+  </div>
+
+  <div *ngIf="userLoaded && cases$ " class="table-container">
+
+    <ngx-datatable [rows]="cases$" [columns]="columns"> </ngx-datatable>
+  </div>
+
+</div>
