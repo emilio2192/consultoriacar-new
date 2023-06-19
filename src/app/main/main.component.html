@@ -1,0 +1,21 @@
+<mat-drawer-container class="main-container">
+  <mat-drawer mode="side" opened class="sidenav" [(opened)]="menuOpen">
+    <img src="assets/logo.jpg" class="logo" alt="logo" />
+    <mat-nav-list class="menu-list">
+      <mat-list-item class="item-menu">
+        <a role="listitem" href="#"> inicio</a>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item class="item-menu">
+        <a role="listitem" href="#"> inicio</a>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-nav-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <button mat-icon-button color="primary" (click)="toggleMenu()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>
