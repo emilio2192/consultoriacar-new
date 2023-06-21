@@ -5,18 +5,18 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: '',
-    authDomain: '',
-    databaseURL: '',
-    projectId: '',
-    storageBucket: '',
-    messagingSenderId: '',
-    appId: '',
+    apiKey: 'AIzaSyAqp_uEmKl2iLXFKX-z_0LXvOeOOVasWGc',
+    authDomain: 'file-system-28759.firebaseapp.com',
+    databaseURL: 'https://file-system-28759.firebaseio.com',
+    projectId: 'file-system-28759',
+    storageBucket: 'file-system-28759.appspot.com',
+    messagingSenderId: '196846752487',
+    appId: "1:196846752487:web:6688676dbf89351ff70842",
     measurementId: "G-ZXWEVRFYRD"
   },
   amazon:{
-    accessKey:'',
-    secretKey:''
+    accessKey:'AKIA4TNZTXM6IUWDWSL5',
+    secretKey:'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'
   }
 };
 

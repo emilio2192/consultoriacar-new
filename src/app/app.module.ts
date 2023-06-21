@@ -84,7 +84,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
       keys:[
         {auth: ['sessionUid', 'currentUser']},
         {users: ['users']},
-        {cases: ['cases']}
+        {cases: ['cases', 'clientSelected', 'statusSelected']}
       ],
       debugInfo: true,
     }),

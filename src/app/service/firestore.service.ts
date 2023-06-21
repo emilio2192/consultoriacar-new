@@ -28,15 +28,15 @@ export class FirestoreService {
     })[0]
   }
 
-  getFilterCases = (client?:string) => {
-    if(!client){
-      // return this.casesCollection.valueChanges();
-      return this.db.collection('/cases', ref => {
-        return ref.where('isFinish', '==', false);
-      }).valueChanges()
-    }
+  getFilterCases = (isFinish?:boolean, client?:string) => {
+
     return this.db.collection('/cases', ref => {
-      return ref.where('client', '==', client).where('isFinish', '==', false);
+      let  reference = ref.where('isFinish', '==', isFinish);
+      if(client){
+        console.log('filtra', client);
+        reference = ref.where('isFinish', '==', isFinish).where('client', '==', client);
+      } 
+      return reference;
     }).valueChanges();
   }
 }
