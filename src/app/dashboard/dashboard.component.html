@@ -3,27 +3,29 @@
     <h2>Crear nuevo correlativo</h2>
     <div class="frm-cases">
       <mat-form-field>
-        <input matInput placeholder="Numero inicial" name="initialNumber" type="number" required>
+        <input matInput placeholder="Numero inicial" [(ngModel)]="initialCorrelative" name="initialNumber" type="number"
+          required>
         <mat-error>
           Ingrese un numero inicial de correlativo
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Numero final" name="finalNumber" type="number" required>
+        <input matInput placeholder="Numero final" [(ngModel)]="finalCorrelative" name="finalNumber" type="number"
+          required>
         <mat-error>
           Ingrese un numero final de correlativo
         </mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Clientes</mat-label>
-        <mat-select>
+        <mat-select [(ngModel)]="userToCreate">
           <mat-option *ngFor="let user of users" [value]="user.uid">
             {{user.name}}
           </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
-    <button mat-stroked-button color="primary" class="btn-crear">Basic</button>
+    <button mat-stroked-button color="primary" (click)="createCorrelatives()" class="btn-crear">Crear</button>
   </div>
 
   <div *ngIf="userLoaded && cases$ " class="table-container">

@@ -9,6 +9,8 @@ import * as userActions from '../store/actions/users.actions';
 import * as casesSelector from '../store/selectors/cases.selector';
 import { User } from 'app/store/interfaces/user.interface';
 import { Case } from 'app/store/interfaces/cases.interface';
+import { AuthService } from 'app/service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -21,7 +23,12 @@ export class MainComponent implements OnInit {
   statusOptionSelected!:boolean;
   clientSelected!: string | null;
   
-  constructor(private firestoreService: FirestoreService,private store: Store<AppState>){
+  constructor(
+    private firestoreService: FirestoreService,
+    private store: Store<AppState>, 
+    private authService: AuthService,
+    private router: Router
+  ){
     
     this.fetchData();
 
@@ -29,6 +36,7 @@ export class MainComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscribeFilters();
+    console.log('init')
   }
   fetchData = async () => {
     // extract status selected of cases
@@ -46,6 +54,7 @@ export class MainComponent implements OnInit {
       console.log({users})
       this.store.dispatch(userActions.successUsersLoaded({users: users as unknown as User[]}));
     })
+    console.log('fetch finished');
   }
   subscribeFilters = () => {
     this.store.select(casesSelector.selectClientSelected)
@@ -70,4 +79,9 @@ export class MainComponent implements OnInit {
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
   }
+
+  logout = async () => {
+    await this.authService.logout()
+    this.router.navigate(['login']);
+  };
 }

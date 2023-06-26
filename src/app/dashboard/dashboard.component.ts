@@ -14,6 +14,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import {saveAs} from "file-saver";
 import { selectCurrentUser } from '../store/selectors/auth.selector';
+import { FirestoreService } from 'app/service/firestore.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -34,7 +35,14 @@ export class DashboardComponent implements OnInit {
   private sort!: MatSort;
   currentUser!: any;
 
-  constructor(private store: Store<AppState>){
+  initialCorrelative!: number;
+  finalCorrelative!: number;
+  userToCreate!:string;
+
+  constructor(
+    private store: Store<AppState>,
+    private firestoreService: FirestoreService
+  ){
    this.loadData()
   }
   
@@ -131,5 +139,13 @@ export class DashboardComponent implements OnInit {
     const dataBlob = new Blob([Buffer.from(data, 'utf-8')], {type:'text/csv;charset=utf-8'})
     
     await saveAs(dataBlob, 'listado-correlativos.csv');
+  }
+
+  createCorrelatives = async () => {
+    console.log(this.initialCorrelative, this.finalCorrelative, this.userToCreate);
+    if(this.initialCorrelative > 0 && this.finalCorrelative !== null && this.userToCreate !== null){
+      const result = await this.firestoreService.createCorrelatives(this.initialCorrelative,this.finalCorrelative, this.userToCreate);
+      console.log('Creating..',{result});
+    }
   }
 }
