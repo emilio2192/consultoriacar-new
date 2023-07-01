@@ -33,7 +33,6 @@ export class FirestoreService {
     return this.db.collection('/cases', ref => {
       let  reference = ref.where('isFinish', '==', isFinish);
       if(client){
-        console.log('filtra', client);
         reference = ref.where('isFinish', '==', isFinish).where('client', '==', client);
       } 
       return reference;
@@ -53,5 +52,12 @@ export class FirestoreService {
 
     }
 
+  }
+
+  getCorrelative = async (correlative: number) => {
+    return this.db.collection('/cases', ref => {
+      let  reference = ref.where('correlative', '==', correlative);
+      return reference;
+    }).valueChanges();
   }
 }

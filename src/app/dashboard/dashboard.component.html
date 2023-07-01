@@ -1,5 +1,5 @@
 <div class="main-dashboard">
-  <div class="admin-container" *ngIf="currentUser?.admin ">
+  <div class="admin-container">
     <h2>Crear nuevo correlativo</h2>
     <div class="frm-cases">
       <mat-form-field>
@@ -30,6 +30,20 @@
 
   <div *ngIf="userLoaded && cases$ " class="table-container">
     <div class="filter-options-container">
+      <div class="filter-search">
+        <mat-form-field>
+          <mat-label>buscar:</mat-label>
+          <input matInput placeholder="buscar" name="correlativeToSearch" [(ngModel)]="correlativeToSearch"
+            type="number" required>
+        </mat-form-field>
+        <button mat-stroked-button color="primary" class="btn-filtrar" (click)="filter()">
+          buscar
+        </button>
+        <button mat-stroked-button color="primary" class="btn-filtrar" (click)="clearFilter()">
+          limpiar
+        </button>
+      </div>
+
       <mat-form-field>
         <mat-label>Clientes:</mat-label>
         <mat-select (selectionChange)="selectClient($event)" [(ngModel)]="clientSelected">

@@ -56,12 +56,19 @@
   display: flex;
   flex-direction: row;
   margin-top: 20px;
-  justify-content: end;
+  justify-content: flex-end;
   gap: 15px;
   margin-bottom:15px;
 }
+.main-dashboard > .table-container > .filter-options-container >.filter-search{
+  align-self: self-start;
+  flex:1;
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+}
 
-.main-dashboard > .table-container > .filter-options-container > .btn-filtrar {
+.btn-filtrar {
   width: 100px;
   height: 60px;
 }
