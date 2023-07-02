@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FirestoreService } from 'app/service/firestore.service';
 import { AppState } from 'app/store/reducers';
-import { selectCurrentUser } from 'app/store/selectors/auth.selector';
-import { Subject, filter, isEmpty, take, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import * as casesActions from '../store/actions/cases.actions';
 import * as userActions from '../store/actions/users.actions';
+import * as authActions from '../store/actions/auth.actions';
 import * as casesSelector from '../store/selectors/cases.selector';
 import { User } from 'app/store/interfaces/user.interface';
 import { Case } from 'app/store/interfaces/cases.interface';
@@ -82,6 +82,7 @@ export class MainComponent implements OnInit {
 
   logout = async () => {
     await this.authService.logout()
+    await this.store.dispatch(authActions.logOutAction());
     this.router.navigate(['login']);
   };
 }

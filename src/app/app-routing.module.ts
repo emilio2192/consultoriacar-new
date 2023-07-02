@@ -5,15 +5,18 @@ import { MainComponent } from './main/main.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 // import { ForgotpwdComponent } from './auth/forgotpwd/forgotpwd.component';
 import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/compat/auth-guard';
+import { ForgotComponent } from './auth/forgot/forgot.component';
+import { UsersComponent } from './users/users.component';
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 
 const routes: Routes = [
   {path:'', component: LoginComponent},
   {path:'login', component: LoginComponent},
-  // {path:'forgotpwd', component: ForgotpwdComponent},
+  {path:'forgot', component: ForgotComponent},
   {
     path:'main', component: MainComponent, children:[
-      {path:'dashboard', component: DashboardComponent}
+      {path:'dashboard', component: DashboardComponent},
+      {path: 'users', component: UsersComponent}
     ], 
     canActivate: [AngularFireAuthGuard],
     data: {authGuardPipe: redirectUnauthorizedToLogin} 

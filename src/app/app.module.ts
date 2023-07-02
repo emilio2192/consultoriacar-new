@@ -45,6 +45,10 @@ import { MatSortModule } from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { NgrxStoreIdbModule } from 'ngrx-store-idb';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { ForgotComponent } from './auth/forgot/forgot.component';
+import { UsersComponent } from './users/users.component';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -52,6 +56,8 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     LoginComponent,
     MainComponent,
     DashboardComponent,
+    ForgotComponent,
+    UsersComponent,
     // ForgotpwdComponent,
   ],
   imports: [
@@ -69,12 +75,14 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     MatInputModule,
     MatButtonModule,
     MatSidenavModule,
+    MatButtonToggleModule,
     StoreModule.forRoot(reducers, {metaReducers}),
     StoreDevtoolsModule.instrument({maxAge:25,trace: true}),
     MatIconModule,
     MatSelectModule,
     MatTableModule, 
     MatSortModule,
+    MatSnackBarModule,
     MatPaginatorModule,
     NgxDatatableModule,
     EffectsModule.forRoot([]),

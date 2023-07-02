@@ -9,3 +9,8 @@ export const saveCurrentUser = createAction(
   '[Auth Component] Save current user',
   props<{user: any}>()
 );
+
+
+export const logOutAction = createAction(
+  '[Auth Component] logout'
+);
