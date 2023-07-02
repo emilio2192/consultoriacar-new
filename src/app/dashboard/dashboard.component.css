@@ -72,3 +72,11 @@
   width: 100px;
   height: 60px;
 }
+
+.option-column{
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}

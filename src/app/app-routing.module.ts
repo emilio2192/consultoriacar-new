@@ -3,10 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { MainComponent } from './main/main.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-// import { ForgotpwdComponent } from './auth/forgotpwd/forgotpwd.component';
 import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/compat/auth-guard';
 import { ForgotComponent } from './auth/forgot/forgot.component';
 import { UsersComponent } from './users/users.component';
+import { CaseDetailComponent } from './case-detail/case-detail.component';
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 
 const routes: Routes = [
@@ -16,7 +16,8 @@ const routes: Routes = [
   {
     path:'main', component: MainComponent, children:[
       {path:'dashboard', component: DashboardComponent},
-      {path: 'users', component: UsersComponent}
+      {path: 'users', component: UsersComponent},
+      {path: 'case-detail/:id', component: CaseDetailComponent}
     ], 
     canActivate: [AngularFireAuthGuard],
     data: {authGuardPipe: redirectUnauthorizedToLogin} 

@@ -86,8 +86,15 @@
       </ng-container>
       <ng-container matColumnDef="options">
         <th mat-header-cell *matHeaderCellDef>Opciones</th>
-        <td mat-cell *matCellDef="let case">
-          <button mat-stroked-button color="primary" class="btn-crear">Descargar</button>
+        <td mat-cell *matCellDef="let case" class="option-column">
+          <button mat-stroked-button color="primary" class="btn-crear" *ngIf="currentUser.admin"
+            (click)="deleteCorrelative(case.correlative)">
+            Eliminar
+          </button>
+          <a *ngIf="case.files.length == 1" mat-stroked-button color="primary" class="btn-crear"
+            href="{{case.files[0].url}}" target="_blank">Ver Archivo</a>
+          <a mat-stroked-button color="primary" class="btn-crear"
+            href="/main/case-detail/{{case.correlative}}">Detalle</a>
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>

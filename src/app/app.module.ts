@@ -49,6 +49,7 @@ import { ForgotComponent } from './auth/forgot/forgot.component';
 import { UsersComponent } from './users/users.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { CaseDetailComponent } from './case-detail/case-detail.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     DashboardComponent,
     ForgotComponent,
     UsersComponent,
+    CaseDetailComponent,
     // ForgotpwdComponent,
   ],
   imports: [

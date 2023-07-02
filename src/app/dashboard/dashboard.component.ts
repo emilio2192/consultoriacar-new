@@ -111,6 +111,8 @@ export class DashboardComponent implements OnInit {
   }
 
   selectClient = (event:any) => {
+    this.store.dispatch(casesActions.loadedCases({cases:[]}));
+    this.dataSource.data = [];
     this.store.dispatch(casesActions.setClientSelected({client:event.value}));
   }
 
@@ -139,7 +141,6 @@ export class DashboardComponent implements OnInit {
   
   filter =  async () => {
     if(this.correlativeToSearch){
-      // this.firestoreService.getCorrelative(this.correlativeToSearch).
       (await this.firestoreService.getCorrelative(this.correlativeToSearch)).pipe(take(1))
       .subscribe((caseItem) => {
         if(caseItem.length > 0){
@@ -175,4 +176,11 @@ export class DashboardComponent implements OnInit {
       }
     })
   }
+
+  async deleteCorrelative(correlative:number) {
+    
+    await this.firestoreService.deleteCorrelative(correlative);
+    this.loadDataTable();
+  }
+
 }
