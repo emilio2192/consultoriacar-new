@@ -58,9 +58,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
-    // StoreModule.forRoot({}, {}),
     AppRoutingModule,
-    // provideFirebaseApp(() => initializeApp(environment.firebase)),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
@@ -84,7 +82,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
       keys:[
         {auth: ['sessionUid', 'currentUser']},
         {users: ['users']},
-        {cases: ['cases']}
+        {cases: ['cases', 'clientSelected', 'statusSelected']}
       ],
       debugInfo: true,
     }),

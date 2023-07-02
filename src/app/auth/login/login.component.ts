@@ -28,11 +28,15 @@ export class LoginComponent {
       if(response.user?.uid){
         this.store.dispatch(authActions.saveSessionUid({uid:response.user.uid}))
         const res = await this.firestoreService.getUser(response.user.uid);
-        this.store.dispatch(authActions.saveCurrentUser({user:res}));
-        this.router.navigate(['main/dashboard'])
-
+        await this.store.dispatch(authActions.saveCurrentUser({user:res}));
+        this.router.navigateByUrl('/main/dashboard');
+        console.log('heereeee');
+      }else{
+        console.log('helooo');
       }
+      
     } catch (error) {
+      console.log('errooooor', error);
       this.error = true;
     }
     

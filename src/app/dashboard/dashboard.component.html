@@ -3,30 +3,97 @@
     <h2>Crear nuevo correlativo</h2>
     <div class="frm-cases">
       <mat-form-field>
-        <input matInput placeholder="Numero inicial" name="initialNumber" type="number" required>
+        <input matInput placeholder="Numero inicial" [(ngModel)]="initialCorrelative" name="initialNumber" type="number"
+          required>
         <mat-error>
           Ingrese un numero inicial de correlativo
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Numero final" name="finalNumber" type="number" required>
+        <input matInput placeholder="Numero final" [(ngModel)]="finalCorrelative" name="finalNumber" type="number"
+          required>
         <mat-error>
           Ingrese un numero final de correlativo
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Favorite food</mat-label>
-        <mat-select>
-          <mat-option>None</mat-option>
+        <mat-label>Clientes</mat-label>
+        <mat-select [(ngModel)]="userToCreate">
+          <mat-option *ngFor="let user of users" [value]="user.uid">
+            {{user.name}}
+          </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
-    <button mat-stroked-button color="primary" class="btn-crear">Basic</button>
+    <button mat-stroked-button color="primary" (click)="createCorrelatives()" class="btn-crear">Crear</button>
   </div>
 
   <div *ngIf="userLoaded && cases$ " class="table-container">
+    <div class="filter-options-container">
+      <div class="filter-search">
+        <mat-form-field>
+          <mat-label>buscar:</mat-label>
+          <input matInput placeholder="buscar" name="correlativeToSearch" [(ngModel)]="correlativeToSearch"
+            type="number" required>
+        </mat-form-field>
+        <button mat-stroked-button color="primary" class="btn-filtrar" (click)="filter()">
+          buscar
+        </button>
+        <button mat-stroked-button color="primary" class="btn-filtrar" (click)="clearFilter()">
+          limpiar
+        </button>
+      </div>
 
-    <ngx-datatable [rows]="cases$" [columns]="columns"> </ngx-datatable>
+      <mat-form-field>
+        <mat-label>Clientes:</mat-label>
+        <mat-select (selectionChange)="selectClient($event)" [(ngModel)]="clientSelected">
+          <mat-option *ngFor="let user of users" [value]="user.uid">
+            {{user.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Estado de correlativo:</mat-label>
+        <mat-select (selectionChange)="selectStatus($event)" [(ngModel)]="statusOptionSelected">
+          <mat-option [value]="true">
+            Finalizadas
+          </mat-option>
+          <mat-option [value]="false">
+            Abiertas
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-stroked-button color="primary" class="btn-filtrar" (click)="exportCsv()">
+        Descargar
+      </button>
+    </div>
+    <table mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="correlative">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> correlativo </th>
+        <td mat-cell *matCellDef="let case"> {{+case.correlative}} </td>
+      </ng-container>
+      <ng-container matColumnDef="clientName">
+        <th mat-header-cell *matHeaderCellDef>Cliente</th>
+        <td mat-cell *matCellDef="let case"> {{case.clientName}} </td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Estado</th>
+        <td mat-cell *matCellDef="let case"> {{case.isFinish ? "Finalizada" : "Abierta"}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Archivos">
+        <th mat-header-cell *matHeaderCellDef>Archivos</th>
+        <td mat-cell *matCellDef="let case"> <b>No de archivos: &nbsp;</b>{{case.files.length}} </td>
+      </ng-container>
+      <ng-container matColumnDef="options">
+        <th mat-header-cell *matHeaderCellDef>Opciones</th>
+        <td mat-cell *matCellDef="let case">
+          <button mat-stroked-button color="primary" class="btn-crear">Descargar</button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons></mat-paginator>
   </div>
 
 </div>

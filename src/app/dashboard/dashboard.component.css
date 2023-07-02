@@ -48,3 +48,27 @@
   align-self: center;
   overflow-y: scroll;
 }
+
+.main-dashboard > .table-container > .filter-options-container{
+  width: calc(100% - 25px);
+  padding: 10px;
+  border:1px solid #E5E8E8;
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-bottom:15px;
+}
+.main-dashboard > .table-container > .filter-options-container >.filter-search{
+  align-self: self-start;
+  flex:1;
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.btn-filtrar {
+  width: 100px;
+  height: 60px;
+}

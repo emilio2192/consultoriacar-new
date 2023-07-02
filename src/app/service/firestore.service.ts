@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, collectionData, collection, query, where, getDocs } from '@angular/fire/firestore';
+import { Firestore, collectionData, collection, query, where, getDocs, doc, setDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Case } from 'app/store/interfaces/cases.interface';
@@ -28,15 +28,36 @@ export class FirestoreService {
     })[0]
   }
 
-  getFilterCases = (client?:string) => {
-    if(!client){
-      // return this.casesCollection.valueChanges();
-      return this.db.collection('/cases', ref => {
-        return ref.where('isFinish', '==', false);
-      }).valueChanges()
-    }
+  getFilterCases = (isFinish?:boolean, client?:string) => {
+
     return this.db.collection('/cases', ref => {
-      return ref.where('client', '==', client).where('isFinish', '==', false);
+      let  reference = ref.where('isFinish', '==', isFinish);
+      if(client){
+        reference = ref.where('isFinish', '==', isFinish).where('client', '==', client);
+      } 
+      return reference;
+    }).valueChanges();
+  }
+
+  createCorrelatives = async (initial:number, final:number, user:string) => {
+    // @ts-ignore
+    const firebase = this.db.firestore;
+    const batch = firebase.batch();
+
+    const dbRef = this.db;
+    for(let i = initial; i <= final; i++){
+      const data = {correlative: i, client: user, isFinish: false, files:[], createdAt: new Date()}
+      console.log(`counter ${i}`, data);
+      const docRef = this.db.collection('/cases').doc().set(Object.assign({},data));
+
+    }
+
+  }
+
+  getCorrelative = async (correlative: number) => {
+    return this.db.collection('/cases', ref => {
+      let  reference = ref.where('correlative', '==', correlative);
+      return reference;
     }).valueChanges();
   }
 }
