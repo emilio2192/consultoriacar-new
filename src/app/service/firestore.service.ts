@@ -40,17 +40,18 @@ export class FirestoreService {
   }
 
   createCorrelatives = async (initial:number, final:number, user:string) => {
-    // @ts-ignore
-    const firebase = this.db.firestore;
-    const batch = firebase.batch();
-
-    const dbRef = this.db;
-    for(let i = initial; i <= final; i++){
-      const data = {correlative: i, client: user, isFinish: false, files:[], createdAt: new Date()}
-      console.log(`counter ${i}`, data);
-      const docRef = this.db.collection('/cases').doc().set(Object.assign({},data));
-
+    try {
+      for(let i = initial; i <= final; i++){
+        const data = {correlative: i, client: user, isFinish: false, files:[], createdAt: new Date()}
+        console.log(`counter ${i}`, data);
+        const docRef = this.db.collection('/cases').doc().set(Object.assign({},data));
+      }
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
     }
+    
 
   }
 
@@ -73,12 +74,5 @@ export class FirestoreService {
       const id = response.docs[0].id;
       this.db.collection('/cases').doc(id).update({...paramsToUpdate});
     }
-    
-    console.log('aaaaaa', {response});
-    // docRef.doc().set({...paramsToUpdate});
-
-    // this.db.collection('/cases', ref => ref.where('correlative', '==', correlative)).get().forEach(qs =>{
-    //   qs.docs.forEach(item => item.ref.set({...paramsToUpdate}))
-    // })
   }
 }

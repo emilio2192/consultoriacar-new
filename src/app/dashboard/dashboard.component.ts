@@ -15,6 +15,7 @@ import { MatSort } from '@angular/material/sort';
 import {saveAs} from "file-saver";
 import { selectCurrentUser } from '../store/selectors/auth.selector';
 import { FirestoreService } from 'app/service/firestore.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-dashboard',
@@ -42,7 +43,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
-    private firestoreService: FirestoreService
+    private firestoreService: FirestoreService,
+    private _snackBar: MatSnackBar
   ){
    this.loadData()
   }
@@ -130,6 +132,9 @@ export class DashboardComponent implements OnInit {
   createCorrelatives = async () => {
     if(this.initialCorrelative > 0 && this.finalCorrelative !== null && this.userToCreate !== null){
       const result = await this.firestoreService.createCorrelatives(this.initialCorrelative,this.finalCorrelative, this.userToCreate);
+      if(result){
+        this._snackBar.open('Correlativos creados exitosamente', undefined, {duration:10});
+      }
     }
   }
   

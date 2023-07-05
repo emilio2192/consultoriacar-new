@@ -52,6 +52,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { CaseDetailComponent } from './case-detail/case-detail.component';
 import {MatListModule} from '@angular/material/list';
 import { UploadFileService } from './service/upload-file.service';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -89,6 +90,7 @@ import { UploadFileService } from './service/upload-file.service';
     MatSnackBarModule,
     MatPaginatorModule,
     NgxDatatableModule,
+    MatProgressSpinnerModule,
     EffectsModule.forRoot([]),
     NgrxStoreIdbModule.forRoot({
       keys:[
