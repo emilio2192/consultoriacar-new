@@ -19,7 +19,9 @@ export class LoginComponent {
   error = false;
   constructor(private authService: AuthService, private firestoreService: FirestoreService, private store: Store, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.store.dispatch(authActions.cleanStore());
+  }
 
   login = async () => {
     try {
@@ -30,9 +32,8 @@ export class LoginComponent {
         const res = await this.firestoreService.getUser(response.user.uid);
         await this.store.dispatch(authActions.saveCurrentUser({user:res}));
         this.router.navigateByUrl('/main/dashboard');
-        console.log('heereeee');
       }else{
-        console.log('helooo');
+        throw new Error('No user data');
       }
       
     } catch (error) {
@@ -45,7 +46,4 @@ export class LoginComponent {
     this.authService.logout();
   }
 
-  forgot = () => {
-    // this.router.navigate(['forgotpwd']);
-  }
 }

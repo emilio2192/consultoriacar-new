@@ -5,9 +5,9 @@ import {
   MetaReducer,
   UPDATE
  } from "@ngrx/store";
-import {InitialState as AuthState, authReducer }from "./auth.reducer";
-import { userReducer, InitialState as UserState } from "./user.reducer";
-import { caseReducer, InitialState as CaseState } from "./case.reducer";
+import {InitialState as AuthState,initialState as initAuth, authReducer }from "./auth.reducer";
+import { userReducer, InitialState as UserState, initialState as initUser } from "./user.reducer";
+import { caseReducer, InitialState as CaseState, initialState as initCases } from "./case.reducer";
 
 export interface AppState {
   auth: AuthState,
@@ -25,8 +25,12 @@ export interface AppState {
  export const resetData = (reducer: ActionReducer<AppState>): ActionReducer<AppState> => {
   
   return  (state, action): AppState => {
-    if(action.type === '[Auth Component] logout'){
-      return reducer(undefined, action);
+    if(action.type === '[Auth Component] clean store'){
+      return reducer({
+        auth: initAuth,
+        users: initUser,
+        cases: initCases
+      }, action);
     }
     return reducer(state, action);
   }

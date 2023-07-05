@@ -24,7 +24,7 @@
     <div class="finish" [hidden]="case$.isFinish || case$.files.length < 1">
       <button mat-flat-button (click)="closeCase()" color="warn">Finalizar</button>
     </div>
-    <div class="finish" [hidden]="!case$.isFinish && !currentUser.admin">
+    <div class="finish" *ngIf="case$.isFinish && currentUser.admin">
       <button mat-flat-button (click)="openCase()" color="accent">Re-Aperturar</button>
     </div>
 

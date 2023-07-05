@@ -89,6 +89,9 @@ export class MainComponent implements OnInit {
   logout = async () => {
     await this.authService.logout()
     await this.store.dispatch(authActions.logOutAction());
+    await this.store.dispatch(authActions.saveCurrentUser({user: null}));
+    await this.store.dispatch(authActions.saveSessionUid({uid: ''}));
+    await this.store.dispatch(casesActions.setClientSelected({client: ''}));
     this.router.navigate(['login']);
   };
 }

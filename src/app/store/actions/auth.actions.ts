@@ -14,3 +14,8 @@ export const saveCurrentUser = createAction(
 export const logOutAction = createAction(
   '[Auth Component] logout'
 );
+
+
+export const cleanStore = createAction(
+  '[Auth Component] clean store'
+);

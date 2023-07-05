@@ -97,6 +97,7 @@ import { UploadFileService } from './service/upload-file.service';
         {cases: ['cases', 'clientSelected', 'statusSelected']}
       ],
       debugInfo: false,
+      rehydrate: true
     }),
   ],
   providers: [
