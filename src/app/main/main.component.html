@@ -6,7 +6,7 @@
         <a role="listitem" href="/main/dashboard"> inicio</a>
       </mat-list-item>
       <mat-divider></mat-divider>
-      <mat-list-item class="item-menu">
+      <mat-list-item class="item-menu" *ngIf="currentUser.admin">
         <a role="listitem" href="/main/users">Usuarios</a>
       </mat-list-item>
       <mat-divider></mat-divider>

@@ -68,18 +68,15 @@ export class DashboardComponent implements OnInit {
       takeUntil(this.ngUnsubscribe),
     )
     .subscribe( (response) => {
-      console.log({response});
       if(response){
-        if(response){
-          console.log('--->', response);
-          this.currentUser = response;
-          if(!response.admin){
-            this.store.dispatch(casesActions.setClientSelected({client: response.uid}));
-          }
-          
+        this.currentUser = response;
+        if(!response.admin){
+          this.store.dispatch(casesActions.setClientSelected({client: response.uid}));
         }
       }
-    })
+
+    });
+
     await this.store.select(casesSelector.selectStatusSelected)
     .pipe(takeUntil(this.ngUnsubscribe))
     .subscribe(status => this.statusOptionSelected = status);
@@ -94,7 +91,6 @@ export class DashboardComponent implements OnInit {
     .pipe(takeUntil(this.ngUnsubscribe))
     .subscribe(
       users => {
-        console.log('cargado de usuarios',users)
         if(users.length > 0){
           this.users = users
           this.userLoaded = true;
@@ -132,10 +128,8 @@ export class DashboardComponent implements OnInit {
   }
 
   createCorrelatives = async () => {
-    console.log(this.initialCorrelative, this.finalCorrelative, this.userToCreate);
     if(this.initialCorrelative > 0 && this.finalCorrelative !== null && this.userToCreate !== null){
       const result = await this.firestoreService.createCorrelatives(this.initialCorrelative,this.finalCorrelative, this.userToCreate);
-      console.log('Creating..',{result});
     }
   }
   
@@ -165,12 +159,10 @@ export class DashboardComponent implements OnInit {
     .pipe(takeUntil(this.ngUnsubscribe))
     .subscribe((caseItem: Case[]) => {
       if(caseItem.length > 0){
-        console.log('usuarios', this.users);
         this.cases$ = caseItem.map(value => {
           const clientName = this.users.find(user => user.uid === value.client)?.name;
           return {...value, clientName};
         });
-        console.log('number', this.cases$.length)
         this.dataSource.data = this.cases$;
         this.setDataSourceAttributes()
       }

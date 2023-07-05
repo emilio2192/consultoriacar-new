@@ -50,6 +50,8 @@ import { UsersComponent } from './users/users.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { CaseDetailComponent } from './case-detail/case-detail.component';
+import {MatListModule} from '@angular/material/list';
+import { UploadFileService } from './service/upload-file.service';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,6 @@ import { CaseDetailComponent } from './case-detail/case-detail.component';
     ForgotComponent,
     UsersComponent,
     CaseDetailComponent,
-    // ForgotpwdComponent,
   ],
   imports: [
     CommonModule,
@@ -82,7 +83,8 @@ import { CaseDetailComponent } from './case-detail/case-detail.component';
     StoreDevtoolsModule.instrument({maxAge:25,trace: true}),
     MatIconModule,
     MatSelectModule,
-    MatTableModule, 
+    MatTableModule,
+    MatListModule,
     MatSortModule,
     MatSnackBarModule,
     MatPaginatorModule,
@@ -94,12 +96,13 @@ import { CaseDetailComponent } from './case-detail/case-detail.component';
         {users: ['users']},
         {cases: ['cases', 'clientSelected', 'statusSelected']}
       ],
-      debugInfo: true,
+      debugInfo: false,
     }),
   ],
   providers: [
     AuthService,
     AngularFirestoreModule,
+    UploadFileService,
     FirestoreService,
     {provide: FIREBASE_OPTIONS, useValue: environment.firebase}, 
     
