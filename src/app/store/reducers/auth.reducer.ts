@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { saveSessionUid, saveCurrentUser } from "../actions/auth.actions";
+import { saveSessionUid, saveCurrentUser, logOutAction } from "../actions/auth.actions";
 
 export interface InitialState {
   sessionUid: null | string;
@@ -21,5 +21,6 @@ export const authReducer = createReducer(
     ...state,
     sessionUid: state.sessionUid,
     currentUser: user
-  }))
+  })),
+  // on(logOutAction, state => ({}))
 );

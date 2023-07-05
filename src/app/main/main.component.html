@@ -3,12 +3,17 @@
     <img src="assets/logo.jpg" class="logo" alt="logo" />
     <mat-nav-list class="menu-list">
       <mat-list-item class="item-menu">
-        <a role="listitem" href="#"> inicio</a>
+        <a role="listitem" href="/main/dashboard"> inicio</a>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item class="item-menu" *ngIf="currentUser.admin">
+        <a role="listitem" href="/main/users">Usuarios</a>
       </mat-list-item>
       <mat-divider></mat-divider>
       <mat-list-item class="item-menu" (click)="logout()">
         <a role="listitem" href="#"> cerrar sessión</a>
       </mat-list-item>
+
       <mat-divider></mat-divider>
     </mat-nav-list>
   </mat-drawer>

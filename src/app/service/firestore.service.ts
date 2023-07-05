@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, collectionData, collection, query, where, getDocs, doc, setDoc } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Firestore, collectionData, collection, query, where, getDocs, doc, setDoc, getDoc } from '@angular/fire/firestore';
+import { Observable, take } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Case } from 'app/store/interfaces/cases.interface';
 
@@ -59,5 +59,26 @@ export class FirestoreService {
       let  reference = ref.where('correlative', '==', correlative);
       return reference;
     }).valueChanges();
+  }
+
+  deleteCorrelative = async (correlative: number) => {
+    this.db.collection('/cases', ref => ref.where('correlative', '==', correlative)).get().forEach(qs =>{
+      qs.docs.forEach(item => item.ref.delete())
+    })
+  }
+
+  updateDocument = async (paramsToUpdate:any, correlative:number) => {
+    const response = await this.db.collection('/cases', ref => ref.where('correlative', '==', correlative)).get().toPromise();
+    if(response){
+      const id = response.docs[0].id;
+      this.db.collection('/cases').doc(id).update({...paramsToUpdate});
+    }
+    
+    console.log('aaaaaa', {response});
+    // docRef.doc().set({...paramsToUpdate});
+
+    // this.db.collection('/cases', ref => ref.where('correlative', '==', correlative)).get().forEach(qs =>{
+    //   qs.docs.forEach(item => item.ref.set({...paramsToUpdate}))
+    // })
   }
 }

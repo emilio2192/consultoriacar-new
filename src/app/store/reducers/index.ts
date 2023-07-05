@@ -25,22 +25,9 @@ export interface AppState {
  export const resetData = (reducer: ActionReducer<AppState>): ActionReducer<AppState> => {
   
   return  (state, action): AppState => {
-    // console.log({type: action.type});
-    // if(action.type === INIT || action.type === UPDATE){
-    //   const storageValue = await localForage.getItem('state');
-    //   console.log({storageValue});
-    //   if(storageValue){
-    //     try {
-    //       console.log({storageValue});
-    //       return storageValue as unknown as AppState;
-    //     } catch (error) {
-    //       localForage.removeItem('state');
-    //     }
-    //   }
-    // }
-    // const nextState = reducer(state, action);
-    
-    // return Promise.resolve(nextState);
+    if(action.type === '[Auth Component] logout'){
+      return reducer(undefined, action);
+    }
     return reducer(state, action);
   }
  }

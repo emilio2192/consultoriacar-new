@@ -1,0 +1,40 @@
+<mat-card class="login-container">
+  <mat-card-content>
+    <div class="mainContainer">
+      <h2><img class="login-logo" src="assets/logo.jpg" alt=""></h2>
+
+      <mat-form-field>
+        <input matInput placeholder="Nombre" [(ngModel)]="name" name="username" required>
+        <mat-error>
+          Ingrese un nombre para el usuario
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Email" [(ngModel)]="email" name="username" required>
+        <mat-error>
+          Ingrese un correo valido existente
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Contraseña" [(ngModel)]="password" name="username" required>
+        <mat-error>
+          Ingrese contraseña
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-button-toggle-group name="favoriteColor" aria-label="Favorite Color" [(ngModel)]="role" multiple="false">
+        <mat-button-toggle value="normal">Usuario Normal/Cliente</mat-button-toggle>
+        <mat-button-toggle value="admin">Usuario Administrador</mat-button-toggle>
+      </mat-button-toggle-group>
+
+
+      <button mat-raised-button color="primary" class="btn-create" [disabled]="!email || !name || !password || !role"
+        (click)="create()">
+        Iniciar
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

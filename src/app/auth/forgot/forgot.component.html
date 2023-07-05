@@ -1,0 +1,13 @@
+<mat-card class="login-container">
+  <mat-card-content class="forgot-container">
+    <h2><img class="login-logo" src="assets/logo.jpg" alt=""></h2>
+    <h3>Restablecer contraseña</h3>
+    <mat-form-field>
+      <input matInput placeholder="Email" [(ngModel)]="email" name="username" required>
+      <mat-error>
+        Ingrese un correo valido existente
+      </mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="resetPassword()">Restablecer</button>
+  </mat-card-content>
+</mat-card>

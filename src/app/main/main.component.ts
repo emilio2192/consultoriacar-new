@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { FirestoreService } from 'app/service/firestore.service';
-import { AppState } from 'app/store/reducers';
-import { selectCurrentUser } from 'app/store/selectors/auth.selector';
-import { Subject, filter, isEmpty, take, takeUntil } from 'rxjs';
+import { FirestoreService } from '../service/firestore.service';
+import { AppState } from '../store/reducers';
+import { Subject, take, takeUntil } from 'rxjs';
 import * as casesActions from '../store/actions/cases.actions';
 import * as userActions from '../store/actions/users.actions';
+import * as authActions from '../store/actions/auth.actions';
 import * as casesSelector from '../store/selectors/cases.selector';
-import { User } from 'app/store/interfaces/user.interface';
-import { Case } from 'app/store/interfaces/cases.interface';
-import { AuthService } from 'app/service/auth.service';
+import { User } from '../store/interfaces/user.interface';
+import { Case } from '../store/interfaces/cases.interface';
+import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
+import { selectCurrentUser } from '../store/selectors/auth.selector';
 
 @Component({
   selector: 'app-main',
@@ -22,6 +23,7 @@ export class MainComponent implements OnInit {
   menuOpen = false;
   statusOptionSelected!:boolean;
   clientSelected!: string | null;
+  currentUser!: any;
   
   constructor(
     private firestoreService: FirestoreService,
@@ -36,9 +38,16 @@ export class MainComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscribeFilters();
-    console.log('init')
   }
   fetchData = async () => {
+    await this.store.select(selectCurrentUser).pipe(
+      take(1),
+    )
+    .subscribe( (response) => {
+      if(response){
+        this.currentUser = response;
+      }
+    });
     // extract status selected of cases
     await this.store.select(casesSelector.selectStatusSelected)
     .pipe(takeUntil(this.ngUnsubscribe))
@@ -51,10 +60,8 @@ export class MainComponent implements OnInit {
     
     this.firestoreService.getUsers().pipe(takeUntil(this.ngUnsubscribe))
     .subscribe(users => {
-      console.log({users})
       this.store.dispatch(userActions.successUsersLoaded({users: users as unknown as User[]}));
     })
-    console.log('fetch finished');
   }
   subscribeFilters = () => {
     this.store.select(casesSelector.selectClientSelected)
@@ -70,7 +77,6 @@ export class MainComponent implements OnInit {
   }
 
   loadCases = (status?:boolean, client?:string) => {
-    console.log('action loadCases');
     this.firestoreService.getFilterCases(status, client)
     .pipe(takeUntil(this.ngUnsubscribe))
     .subscribe(result => this.store.dispatch(casesActions.loadedCases({cases:result as unknown as Case[]})));
@@ -82,6 +88,7 @@ export class MainComponent implements OnInit {
 
   logout = async () => {
     await this.authService.logout()
-    this.router.navigate(['login']);
+    await this.store.dispatch(authActions.logOutAction());
+    // this.router.navigate(['login']);
   };
 }

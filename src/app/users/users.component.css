@@ -1,0 +1,48 @@
+.bg{
+  background-color: aquamarine;
+  margin-top: 25%;
+  float: left;
+}
+.bg2{
+  background-color: blue;
+}
+.mainContainer{
+  float: left;
+  height: auto;
+  width: 100%;
+  padding-top: 10%;
+  display: flex;
+  flex-direction: column;
+}
+
+.frmContainer{
+  float: left;
+  width: 100%;
+  
+}
+.frmContainer > button{
+  float:right;
+  width: 200px;
+  margin-top:15px;
+}
+.login-logo {
+  max-width: 100%;
+}
+
+h1{
+  text-align: center;
+}
+h1 > img{
+  max-width: 200px;
+}
+.login-container{
+  width: 360px;
+  margin:0 auto;
+  height: 700px;
+
+}
+
+.btn-create {
+  float: left;
+  margin-top:15px;
+}

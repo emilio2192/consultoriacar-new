@@ -45,6 +45,13 @@ import { MatSortModule } from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { NgrxStoreIdbModule } from 'ngrx-store-idb';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { ForgotComponent } from './auth/forgot/forgot.component';
+import { UsersComponent } from './users/users.component';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { CaseDetailComponent } from './case-detail/case-detail.component';
+import {MatListModule} from '@angular/material/list';
+import { UploadFileService } from './service/upload-file.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +59,9 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     LoginComponent,
     MainComponent,
     DashboardComponent,
-    // ForgotpwdComponent,
+    ForgotComponent,
+    UsersComponent,
+    CaseDetailComponent,
   ],
   imports: [
     CommonModule,
@@ -69,12 +78,15 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     MatInputModule,
     MatButtonModule,
     MatSidenavModule,
+    MatButtonToggleModule,
     StoreModule.forRoot(reducers, {metaReducers}),
     StoreDevtoolsModule.instrument({maxAge:25,trace: true}),
     MatIconModule,
     MatSelectModule,
-    MatTableModule, 
+    MatTableModule,
+    MatListModule,
     MatSortModule,
+    MatSnackBarModule,
     MatPaginatorModule,
     NgxDatatableModule,
     EffectsModule.forRoot([]),
@@ -84,12 +96,13 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
         {users: ['users']},
         {cases: ['cases', 'clientSelected', 'statusSelected']}
       ],
-      debugInfo: true,
+      debugInfo: false,
     }),
   ],
   providers: [
     AuthService,
     AngularFirestoreModule,
+    UploadFileService,
     FirestoreService,
     {provide: FIREBASE_OPTIONS, useValue: environment.firebase}, 
     
