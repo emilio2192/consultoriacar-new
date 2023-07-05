@@ -1,1 +1,50 @@
-<pre>{{ case | json }}</pre>
+<div *ngIf="case$ && currentUser" class="case-detail-container">
+  <h1>Detalle</h1>
+  <br />
+  <div class="details">
+    <div>
+      <div class="number">
+        <label class="value">{{case$.correlative}}</label>
+        <label>Numero de correlativo</label>
+      </div>
+    </div>
+    <div>
+      <div class="number">
+        <label class="value">{{case$.isFinish? 'Finalizada' : 'Pendiente'}}</label>
+        <label>Estado</label>
+      </div>
+    </div>
+    <div>
+      <div class="number">
+        <label class="value">{{case$.files.length}}</label>
+        <label>Archivos</label>
+
+      </div>
+    </div>
+    <div class="finish" [hidden]="case$.isFinish || case$.files.length < 1">
+      <button mat-flat-button (click)="closeCase()" color="warn">Finalizar</button>
+    </div>
+    <div class="finish" [hidden]="!case$.isFinish && !currentUser.admin">
+      <button mat-flat-button (click)="openCase()" color="accent">Re-Aperturar</button>
+    </div>
+
+  </div>
+  <div class="files-container">
+    <h1>Archivos</h1>
+    <div *ngIf="case$.files.length == 0">
+      <label>Limitado a solo un archivo</label><br>
+      <button type="button" mat-raised-button (click)="fileInput.click()">Subir archivo..</button>
+      <input hidden #fileInput type="file" id="file" (change)="onFileChanged($event)">
+    </div>
+    <div>
+      <mat-list role="list" *ngFor="let file of case$.files; let i = index;">
+        <mat-list-item role="listitem">
+          <a href={{file.url}} target="_blank">{{file.url}}</a>
+          <button mat-icon-button [hidden]="case$.isFinish" color="warn" (click)="removeFile(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </div>
+</div>
