@@ -40,6 +40,7 @@ export class DashboardComponent implements OnInit {
   finalCorrelative!: number;
   userToCreate!:string;
   correlativeToSearch!: number;
+  isCreating = false;
 
   constructor(
     private store: Store<AppState>,
@@ -131,9 +132,13 @@ export class DashboardComponent implements OnInit {
 
   createCorrelatives = async () => {
     if(this.initialCorrelative > 0 && this.finalCorrelative !== null && this.userToCreate !== null){
+      this.isCreating = true;
       const result = await this.firestoreService.createCorrelatives(this.initialCorrelative,this.finalCorrelative, this.userToCreate);
       if(result){
-        this._snackBar.open('Correlativos creados exitosamente', undefined, {duration:10});
+        this.isCreating = false;
+        this.initialCorrelative =0;
+        this.finalCorrelative =0;
+        this._snackBar.open('Correlativos creados exitosamente', undefined, {duration:50});
       }
     }
   }

@@ -25,7 +25,9 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <button mat-stroked-button color="primary" (click)="createCorrelatives()" class="btn-crear">Crear</button>
+    <button mat-stroked-button color="primary"
+      [disabled]="isCreating || (initialCorrelative == 0 && finalCorrelative ==0)" (click)="createCorrelatives()"
+      class="btn-crear">Crear</button>
   </div>
 
   <div class="table-container">
